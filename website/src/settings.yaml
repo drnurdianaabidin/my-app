@@ -6,7 +6,7 @@
 # ---------------------------------------------------------------
 
 # Your name, exactly as it should appear at the top of every page.
-name: Dr. Nurdiana Zainol Abidin
+name: Dr Nurdiana Zainol Abidin
 
 # Short form used in the browser tab and in shared links.
 shortName: Nurdiana Zainol Abidin
@@ -23,10 +23,14 @@ affiliations:
 interests: Sarcopenia, adiposity, musculoskeletal ageing and physical function
 
 # One or two sentences used by search engines and in shared link previews.
-description: The academic, research, community and industry work of Dr. Nurdiana Zainol Abidin, Universiti Sains Malaysia. Sarcopenia, adiposity, musculoskeletal ageing and physical function.
+description: The academic, research, community and industry work of Dr Nurdiana Zainol Abidin, Universiti Sains Malaysia. Sarcopenia, adiposity, musculoskeletal ageing and physical function.
 
-# Your institutional email address. It appears on the Contact page only.
+# Your institutional email address. It appears on the Contact page and at
+# the foot of each page as a link that opens the visitor's email program.
 email: "[[your.name@usm.my]]"
+
+# A sentence or two shown above your email address on the Contact page.
+contactNote: For enquiries about research, teaching, postgraduate supervision or collaboration, please write by email.
 
 # The web address of the site. Change this only if you connect your own domain,
 # for example https://nurdiana.com

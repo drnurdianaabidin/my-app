@@ -55,6 +55,7 @@ export function parseSettings(text) {
     interests: requireText(raw, 'interests', 'The research interests line (interests)', where),
     description: requireText(raw, 'description', 'The site description', where),
     email: requireText(raw, 'email', 'The email address', where),
+    contactNote: typeof raw.contactNote === 'string' ? raw.contactNote.trim() : '',
     siteUrl,
     highlightPlaceholders: raw.highlightPlaceholders !== false,
   };

@@ -9,6 +9,7 @@ interface Props {
   showSummary?: boolean;
   sizes?: string;
   delay?: number;
+  level?: 2 | 3;
 }
 
 const {
@@ -17,8 +18,10 @@ const {
   showSummary = true,
   sizes = '(min-width: 1240px) 280px, (min-width: 640px) 45vw, 92vw',
   delay = 0,
+  level = 3,
 } = Astro.props;
 const { data } = item;
+const Heading = level === 2 ? 'h2' : 'h3';
 ---
 
 <article class="card reveal" style={`--delay:${delay}ms`}>
@@ -30,7 +33,7 @@ const { data } = item;
       {showSection && <span>{sections[item.collection].title}<span class="visually-hidden">,</span></span>}
       <span class="card__type">{data.type}</span>
     </p>
-    <h3 class="card__title"><T text={data.title} /></h3>
+    <Heading class="card__title"><T text={data.title} /></Heading>
     <p class="card__date"><time datetime={data.date.toISOString().slice(0, 10)}>{formatDate(data.date, 'month')}</time></p>
     {showSummary && <p class="card__summary"><T text={data.summary} /></p>}
   </a>

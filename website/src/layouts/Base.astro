@@ -6,10 +6,9 @@ import '@fontsource/cormorant-garamond/400-italic.css';
 import '@fontsource/cormorant-garamond/500-italic.css';
 import '@fontsource-variable/source-sans-3/wght.css';
 import '@fontsource-variable/source-sans-3/wght-italic.css';
-import '@fontsource-variable/fraunces/opsz.css';
-import '@fontsource-variable/fraunces/opsz-italic.css';
-import '@fontsource-variable/public-sans/wght.css';
 import '../styles/global.css';
+import displayFont from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2?url';
+import bodyFont from '@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url';
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { plain } from '../lib/placeholder.mjs';
@@ -22,11 +21,10 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   type?: 'website' | 'article';
-  direction?: 'a' | 'b';
   noindex?: boolean;
 }
 
-const { title, description, image, imageAlt, type = 'website', direction = 'a', noindex = false } = Astro.props;
+const { title, description, image, imageAlt, type = 'website', noindex = false } = Astro.props;
 
 const pageTitle = title ? `${plain(title)} | ${settings.shortName}` : settings.name;
 const pageDescription = plain(description ?? settings.description);
@@ -42,7 +40,7 @@ if (image) {
 ---
 
 <!doctype html>
-<html lang="en-GB" data-ph={settings.highlightPlaceholders ? 'on' : 'off'} data-direction={direction}>
+<html lang="en-GB" data-ph={settings.highlightPlaceholders ? 'on' : 'off'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,6 +52,8 @@ if (image) {
     <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d1421" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content={type} />

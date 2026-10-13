@@ -19,6 +19,6 @@ links:
 
 [[This is placeholder text. For a publication, you might add the full reference, a plain-language summary of the findings and a note on who funded the work.]]
 
-**[[Reference.]]** [[Author A, Author B, Zainol Abidin N. Title of the paper. Journal Name. 2025;00(0):000 to 000.]]
+**[[Reference.]]** [[Author A, Author B, Zainol Abidin N. Title of the paper. Journal Name. 2025, volume 00, pages 000 to 000.]]
 
 [[The study used data from adults aged 40 to 65 to examine how grip strength relates to body fat percentage and waist circumference. Describe the main finding in one or two plain sentences here.]]

@@ -34,4 +34,8 @@ export default defineConfig({
     defaultStrategy: 'hover',
   },
   devToolbar: { enabled: false },
+  vite: {
+    // Keep every file (CV, videos, PDFs) as a separate download.
+    build: { assetsInlineLimit: 0 },
+  },
 });

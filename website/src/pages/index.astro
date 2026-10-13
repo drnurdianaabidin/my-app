@@ -2,44 +2,17 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import T from '../components/T.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import WorkCard from '../components/WorkCard.astro';
+import Masthead from '../components/Masthead.astro';
+import WorkIndex from '../components/WorkIndex.astro';
 import { settings, getFeatured, roman } from '../lib/items';
 import { getSectionPanels, countLabel } from '../lib/home';
 
 const panels = await getSectionPanels();
-const featured = await getFeatured(4);
+const featured = await getFeatured(6);
 ---
 
-<Base direction="a">
-  <header class="masthead" slot="header">
-    <div class="wrap masthead__inner">
-      <div class="masthead__utility">
-        <ThemeToggle />
-      </div>
-      <p class="label masthead__kicker">{settings.institution}</p>
-      <h1 class="masthead__name">{settings.name}</h1>
-      <p class="masthead__affil">
-        {settings.affiliations.map((a, i) => (
-          <>
-            {i > 0 && <span class="masthead__sep" aria-hidden="true">·</span>}
-            <span>{a}</span>
-          </>
-        ))}
-      </p>
-      <hr class="rule rule--double masthead__rule" />
-      <nav class="masthead__nav" aria-label="Main">
-        <ul>
-          {panels.map((p) => <li><a href={`/${p.key}/`}>{p.title}</a></li>)}
-        </ul>
-        <span class="masthead__nav-sep" aria-hidden="true"></span>
-        <ul>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<Base>
+  <Masthead size="large" slot="header" />
 
   <section class="wrap interests reveal" aria-label="Research interests">
     <p><T text={settings.interests} /></p>
@@ -78,18 +51,7 @@ const featured = await getFeatured(4);
     </ul>
   </section>
 
-  {
-    featured.length > 0 && (
-      <section class="wrap featured" aria-labelledby="featured-heading">
-        <h2 id="featured-heading" class="label section-heading">Selected work</h2>
-        <div class="featured__grid">
-          {featured.map((item, i) => (
-            <WorkCard item={item} delay={i * 100} showSummary={false} />
-          ))}
-        </div>
-      </section>
-    )
-  }
+  {featured.length > 0 && <WorkIndex items={featured} heading="Selected work" headingId="selected-work" />}
 </Base>
 
 <script>
@@ -110,94 +72,6 @@ const featured = await getFeatured(4);
 </script>
 
 <style>
-  /* Masthead */
-  .masthead {
-    padding-top: clamp(1rem, 3vw, 2rem);
-  }
-
-  .masthead__inner {
-    text-align: center;
-  }
-
-  .masthead__utility {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: clamp(0.5rem, 3vw, 1.5rem);
-  }
-
-  .masthead__kicker {
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .masthead__name {
-    font-size: clamp(2.75rem, 7.4vw, 6.75rem);
-    font-weight: 500;
-    letter-spacing: -0.012em;
-    line-height: 1;
-  }
-
-  .masthead__affil {
-    margin: clamp(1rem, 2vw, 1.5rem) auto 0;
-    color: var(--muted);
-    font-size: 0.98rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.2rem 0.75rem;
-  }
-
-  .masthead__sep {
-    color: var(--brass);
-  }
-
-  .masthead__rule {
-    margin-top: clamp(1.75rem, 4vw, 2.75rem);
-  }
-
-  .masthead__nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0 clamp(1rem, 3vw, 2.25rem);
-    padding: 0.35rem 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .masthead__nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0 clamp(1rem, 3vw, 2.25rem);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .masthead__nav a {
-    display: inline-block;
-    padding: 0.75rem 0;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--ink);
-    background: linear-gradient(var(--brass), var(--brass)) no-repeat 50% calc(100% - 0.55rem) / 0 1px;
-    transition: background-size var(--medium) var(--ease), color var(--quick) var(--ease);
-  }
-
-  .masthead__nav a:hover,
-  .masthead__nav a:focus-visible {
-    background-size: 100% 1px;
-  }
-
-  .masthead__nav-sep {
-    width: 1px;
-    height: 1rem;
-    background: var(--rule-strong);
-  }
-
   /* Interests line */
   .interests {
     text-align: center;
@@ -266,7 +140,7 @@ const featured = await getFeatured(4);
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgb(var(--scrim) / 0.82), rgb(var(--scrim) / 0.38) 70%);
+    background: linear-gradient(to top, rgb(var(--scrim) / 0.86), rgb(var(--scrim) / 0.6) 70%);
   }
 
   .panel__body {
@@ -372,23 +246,6 @@ const featured = await getFeatured(4);
     color: var(--ph-ink) !important;
   }
 
-  /* Featured work */
-  .featured {
-    margin-top: var(--space-7);
-  }
-
-  .featured__grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.25rem, 2.5vw, 2.25rem);
-  }
-
-  @media (max-width: 1100px) {
-    .featured__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
   @media (max-width: 760px) {
     .panels {
       grid-template-columns: 1fr;
@@ -397,48 +254,9 @@ const featured = await getFeatured(4);
     .panel {
       aspect-ratio: 16 / 9;
     }
-
-    .masthead__nav-sep {
-      display: none;
-    }
   }
 
   @media (max-width: 560px) {
-    .featured__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .masthead__affil {
-      flex-direction: column;
-      gap: 0.15rem;
-      font-size: 0.92rem;
-    }
-
-    .masthead__sep {
-      display: none;
-    }
-
-    .masthead__nav {
-      flex-direction: column;
-      gap: 0;
-      padding: 0.25rem 0;
-    }
-
-    .masthead__nav ul {
-      gap: 0 1rem;
-    }
-
-    .masthead__nav ul + ul {
-      border-top: 1px solid var(--rule);
-      width: 100%;
-    }
-
-    .masthead__nav a {
-      font-size: 0.7rem;
-      letter-spacing: 0.13em;
-      padding: 0.7rem 0;
-    }
-
     .panel {
       aspect-ratio: 16 / 10;
     }
